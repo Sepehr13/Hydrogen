@@ -4,6 +4,9 @@ export class HydrogenOptions {
     private _engine: 'axios' | undefined;
     private _type: RequestType | undefined;
     private _destination: string | undefined;
+    private _baseUrl: string | undefined;
+    private _queryParams: object | undefined;
+    private _data: string | object | ArrayBuffer | ArrayBufferView | URLSearchParams | FormData | File | Blob | undefined;
 
     get engine(): 'axios' { 
         if(typeof this._engine === 'undefined') throw new Error("Engine has not been set!");
@@ -17,9 +20,24 @@ export class HydrogenOptions {
     };
     set type(type: RequestType) { this._type = type };
 
-    get destination(): string {
-        if(typeof this._destination === 'undefined') throw new Error("Request type has not been set!");
+    get destination(): string | undefined {
         return this._destination
     };
     set destination(destination: string) { this._destination = destination };
+
+    get baseUrl(): string {
+        if(typeof this._baseUrl === 'undefined') throw new Error("Base URL has not been set!");
+        return this._baseUrl
+    };
+    set baseUrl(baseUrl: string) { this._baseUrl = baseUrl };
+
+    get queryParams(): object | undefined {
+        return this._queryParams
+    };
+    set queryParams(queryParams: object) { this._queryParams = queryParams };
+
+    get data(): string | object | ArrayBuffer | ArrayBufferView | URLSearchParams | FormData | File | Blob | undefined {
+        return this._data
+    };
+    set data(data: string | object | ArrayBuffer | ArrayBufferView | URLSearchParams | FormData | File | Blob) { this._data = data };
 }

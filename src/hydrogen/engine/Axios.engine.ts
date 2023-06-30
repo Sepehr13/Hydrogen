@@ -2,6 +2,7 @@ import { Observable } from "rxjs";
 import { BareEngine } from "../class/BareEngine.class";
 import { HydrogenOptions } from "../class/HydrogenOptions.class";
 import axios from "axios";
+import { HydrogenResponse } from "../interface/Response.interface";
 
 export class AxiosEngine extends BareEngine {
 
@@ -9,13 +10,22 @@ export class AxiosEngine extends BareEngine {
         super(options);
     }
 
-    execute<T>(): Observable<T> {
+    execute<T>(): Observable<HydrogenResponse<T>> {
         return new Observable(observer => {
             axios({
                 method: this.options.type,
-                url: this.options.destination
+                url: this.options.destination,
+                baseURL: this.options.baseUrl,
+                params: this.options.queryParams,
+                data: this.options.data,
+                signal: this.cancelSignal,
             }).then(res => {
-                observer.next()
+                observer.next({
+                    data: res.data,
+                    status: res.status,
+                    statusText: res.statusText
+                });
+                observer.complete();
             });
         });
     }

@@ -1,10 +1,11 @@
 import { HydrogenOptions } from "./class/HydrogenOptions.class";
+import { AxiosEngine } from "./engine/Axios.engine";
 import { RequestType } from "./enum/RequestType.enum";
 
 class Hydrogen {
     private static instance: Hydrogen;
 
-    private options!: HydrogenOptions;
+    private options: HydrogenOptions = new HydrogenOptions();
 
     private constructor() {}
 
@@ -44,8 +45,22 @@ class Hydrogen {
         return Hydrogen.instance;
     }
 
-    public Build(): any {
+    public BaseUrl(baseUrl: string): Hydrogen {
+        this.options.baseUrl = baseUrl;
+        return Hydrogen.instance;
+    }
+
+    public Build(): AxiosEngine | undefined {
+        let optionsClone = this.options
         this.options = new HydrogenOptions();
+        switch (optionsClone.engine) {
+            case 'axios':
+                return new AxiosEngine(optionsClone);
+                break;
+        
+            default:
+                break;
+        }
     }
 
     private static getInstance(): Hydrogen {
