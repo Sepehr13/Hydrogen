@@ -40,7 +40,7 @@ class Hydrogen {
     public DestinationParamMap(params: any): Hydrogen {
         if (typeof this.options.destination !== "string") throw new Error("Destination has not been set!");
         Object.keys(params).forEach(k => {
-            this.options.destination!.replace(`:${k}`, params[k]);
+            this.options.destination = this.options.destination!.replace(`:${k}`, params[k]);
         })
         return Hydrogen.instance;
     }
