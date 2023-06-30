@@ -26,6 +26,10 @@ export class AxiosEngine extends BareEngine {
                     statusText: res.statusText
                 });
                 observer.complete();
+            }).catch((e) => {
+                const { code, message, name } = e;
+                observer.error({ code, message, name });
+                observer.complete();
             });
         });
     }

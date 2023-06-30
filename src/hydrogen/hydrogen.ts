@@ -50,7 +50,17 @@ class Hydrogen {
         return Hydrogen.instance;
     }
 
-    public Build(): AxiosEngine | undefined {
+    public QueryParams(queryParams: object): Hydrogen {
+        this.options.queryParams = queryParams;
+        return Hydrogen.instance;
+    }
+
+    public Data(data: string | object | ArrayBuffer | ArrayBufferView | URLSearchParams | FormData | File | Blob): Hydrogen {
+        this.options.data = data;
+        return Hydrogen.instance;
+    }
+
+    public Build(): AxiosEngine {
         let optionsClone = this.options
         this.options = new HydrogenOptions();
         switch (optionsClone.engine) {
@@ -59,6 +69,7 @@ class Hydrogen {
                 break;
         
             default:
+                throw new Error("Method Not Implemented!");
                 break;
         }
     }
