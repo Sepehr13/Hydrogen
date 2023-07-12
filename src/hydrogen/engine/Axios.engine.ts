@@ -1,4 +1,4 @@
-import { Observable } from "rxjs";
+import { Observable, retry } from "rxjs";
 import { BareEngine } from "../class/BareEngine.class";
 import { HydrogenOptions } from "../class/HydrogenOptions.class";
 import axios from "axios";
@@ -11,7 +11,7 @@ export class AxiosEngine extends BareEngine {
     }
 
     execute<T>(): Observable<HydrogenResponse<T>> {
-        return new Observable(observer => {
+        return new Observable<HydrogenResponse<T>>(observer => {
             axios({
                 method: this.options.type,
                 url: this.options.destination,
@@ -19,6 +19,7 @@ export class AxiosEngine extends BareEngine {
                 params: this.options.queryParams,
                 data: this.options.data,
                 signal: this.cancelSignal,
+                timeout: this.options.timeout,
             }).then(res => {
                 observer.next({
                     data: res.data,
@@ -31,7 +32,7 @@ export class AxiosEngine extends BareEngine {
                 observer.error({ code, message, name });
                 observer.complete();
             });
-        });
+        }).pipe(retry(this.options.retry));
     }
     
 }

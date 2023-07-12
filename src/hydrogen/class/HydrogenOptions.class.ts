@@ -7,6 +7,8 @@ export class HydrogenOptions {
     private _baseUrl: string | undefined;
     private _queryParams: object | undefined;
     private _data: string | object | ArrayBuffer | ArrayBufferView | URLSearchParams | FormData | File | Blob | undefined;
+    private _timeout: number | undefined;
+    private _retry: number = 0;
 
     get engine(): 'axios' { 
         if(typeof this._engine === 'undefined') throw new Error("Engine has not been set!");
@@ -40,4 +42,14 @@ export class HydrogenOptions {
         return this._data
     };
     set data(data: string | object | ArrayBuffer | ArrayBufferView | URLSearchParams | FormData | File | Blob) { this._data = data };
+
+    get timeout(): number | undefined {
+        return this._timeout
+    };
+    set timeout(timeout: number) { this._timeout = timeout };
+
+    get retry(): number {
+        return this._retry
+    };
+    set retry(retry: number) { this._retry = retry };
 }

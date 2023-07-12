@@ -60,6 +60,16 @@ class Hydrogen {
         return Hydrogen.instance;
     }
 
+    public Timeout(timeout: number): Hydrogen {
+        this.options.timeout = timeout;
+        return Hydrogen.instance;
+    }
+
+    public Retry(retry: number): Hydrogen {
+        this.options.retry = retry;
+        return Hydrogen.instance;
+    }
+
     public Build(): AxiosEngine {
         let optionsClone = this.options
         this.options = new HydrogenOptions();
