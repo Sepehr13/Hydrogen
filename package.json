@@ -1,9 +1,9 @@
 {
-  "name": "@sepehr/hydrogen",
+  "name": "@sepehrazizi/hydrogen",
   "version": "1.0.0",
   "description": "A flexible HTTP Client with lots of options.",
   "repository": {
-    "url": "https://github.com/Sepehr13/Hydrogen"
+    "url": "git+https://github.com/Sepehr13/Hydrogen.git"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,5 +20,10 @@
     "axios": "^1.4.0",
     "rxjs": "^7.8.1",
     "typescript": "^5.1.5"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Sepehr13/Hydrogen/issues"
+  },
+  "homepage": "https://github.com/Sepehr13/Hydrogen#readme",
+  "devDependencies": {}
 }
